@@ -1,7 +1,12 @@
-#include "game.h"
+#include <iostream>
+#include "graphics.h"
 
-int main(int argc, char ** argv)
+int main(int argc, char *argv[])
 {
-	Game game;
+	while (true)
+	{
+		Graphics graphics;
+	}
+
 	return 0;
 }
