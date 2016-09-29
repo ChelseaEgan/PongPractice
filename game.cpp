@@ -1,64 +1,28 @@
 #include "game.h"
-#include "graphics.h"
-#include "input.h"
 
 Game::Game()
 {
-	//Initialize SDL
-	SDL_Init(SDL_INIT_EVERYTHING);
+	bool quit = false;
 
-	//Call game initialization
-	this->gameLoop();
-}
-
-void Game::gameLoop()
-{
-	Graphics graphics;
-
-	Input input;
-
-	SDL_Event event;
-
-	int LAST_UPDATE_TIME = SDL_GetTicks();
-
-	//game loop:
-	while (true)
+	while (!quit)
 	{
-		input.beginNewFrame();
-
-		if (SDL_PollEvent(&event))
+		while (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_KEYDOWN) //key has been pressed
+			if (event.type == SDL_QUIT)
 			{
-				if (event.key.repeat == 0) //makes sure key is not held down
-				{
-					input.keyDownEvent(event);
-				}
+				quit = true;
 			}
-			else if (event.type == SDL_KEYUP) //key has been released
+			if (event.type == SDL_KEYDOWN)
 			{
-				input.keyUpEvent(event);
-			}
-			else if (event.type == SDL_QUIT) //when program ends or user clicks “x”
-			{
-				return; //window closes and game loop ends
-			}
-			if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) //escape key was pressed
-			{
-				return; //window closes and game loop ends
+				if (event.key.keysym.sym == SDLK_ESCAPE)
+					quit = true;
 			}
 		}
-				
-		/*this->draw(graphics);*/
 	}
-}
-
-void Game::draw(Graphics &graphics)
-{
-	graphics.clear(); //clear screen
-	this->_ball.draw(graphics);
-	graphics.flip(); //draw to screen
-}
+	SDL_Quit();
+};
 
 Game::~Game()
-{}
+{
+
+}
