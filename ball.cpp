@@ -1,78 +1,34 @@
 #include "ball.h"
 #include "graphics.h"
-#include <cmath>
-/***********************************************
-** Ball Class
-** Implementation
-** Position, direction and speed of ball
-***********************************************/
 
-/***********************************************
-** Ball
-** default constructor
-***********************************************/
 Ball::Ball()
 {
+
 }
 
-/***********************************************
-** Ball
-** constructor
-** sets initial position, dimensions, direction
-** and creates render
-***********************************************/
-Ball::Ball(Graphics &graphics, const std::string &filePath, float sourceX, float sourceY, float width, 
-	float height, float posX, float posY) :
+Ball::Ball(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int width, 
+	int height, float posX, float posY) :
 	x(posX),
 	y(posY)
 {
-	this->_sourceRect.x = sourceX;
-	this->_sourceRect.y = sourceY;
-	this->_sourceRect.w = width;
-	this->_sourceRect.h = height;
-	this->_spriteSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(filePath));
-	if (this->_spriteSheet == NULL)
+	this->sourceRect.x = sourceX;
+	this->sourceRect.y = sourceY;
+	this->sourceRect.w = width;
+	this->sourceRect.h = height;
+	this->texture = graphics.loadImage(filePath);
+	if (this->texture == NULL)
 	{
-		std::cout << "\nError: unable to load image\n";
+		std::cout << "\nError: Unable to load image\n";
 	}
 }
 
-/***********************************************
-** Ball
-** destructor
-** destroys ball image
-***********************************************/
 Ball::~Ball()
 {
+
 }
 
-/***********************************************
-** void update
-** Moves ball based on time
-***********************************************/
-void Ball::update(float delta)
+void Ball::draw(Graphics &graphics, int x, int y)
 {
-}
-
-/***********************************************
-** void render
-** sets the rectangle for the render
-***********************************************/
-void Ball::draw(Graphics &graphics)
-{
-	SDL_Rect destinationRectangle;
-	destinationRectangle.x = (int)(x + 0.5f); //round float to nearest int
-	destinationRectangle.y = (int)(y + 0.5f); //round float to nearest int
-	destinationRectangle.w = this->_sourceRect.w;
-	destinationRectangle.h = this->_sourceRect.h;
-	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destinationRectangle);
-}
-
-/***********************************************
-** void setDirection
-** normalizes direction vector and multiply with
-** BALL_SPEED
-***********************************************/
-void Ball::setDirection(float dirx, float diry)
-{
+	SDL_Rect destinationRectangle = { x, y, this->sourceRect.w, this->sourceRect.h };
+	graphics.blitSurface(this->texture, &this->sourceRect, &destinationRectangle);
 }

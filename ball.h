@@ -3,30 +3,23 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <iostream>
-#include <string>
 
 class Graphics;
-/***********************************************
-** Ball Class
-** Position, direction and speed of ball
-***********************************************/
+
+#include <string>
+#include <iostream>
 
 class Ball
 {
-private:
-	const float BALL_SPEED = 900;
-	float x, y, width, height; //position and dimensions
-	float dirx, diry; //direction of movement
-	SDL_Texture* _spriteSheet;
-	SDL_Rect _sourceRect;
+protected:
+	SDL_Rect sourceRect;
+	SDL_Texture* texture;
+	float x, y;
 public:
 	Ball();
-	Ball(Graphics &graphics, const std::string &filePath, float sourceX, float sourceY, float width, 
-		float height, float posX, float posY);
+	Ball(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int width, int height, float x, float y);
 	~Ball();
-	void update(float delta);
-	void draw(Graphics &graphics);
-	void setDirection(float dirx, float diry);
+	void draw(Graphics &graphics, int x, int y);
 };
-#endif // !BALL_H
+
+#endif
