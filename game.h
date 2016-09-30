@@ -1,23 +1,24 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SDL.h>
-#include <SDL_image.h>
-#include <iostream>
-#include <vector>
+/********************************************
+** Game Class
+** Handles main game loop
+********************************************/
 
-#include"ball.h"
-#include "paddles.h"
+#include <SDL.h>
+#include<SDL_image.h>
+
+#include "graphics.h"
 
 class Game
 {
 private:
-	Ball _ball;
+	SDL_Event event;
+	Graphics graphics;
 public:
 	Game();
-	void gameLoop();
-	void draw(Graphics &graphics);
 	~Game();
 };
 
-#endif
+#endif // !GAME_H

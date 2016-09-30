@@ -1,12 +1,9 @@
 #include <iostream>
-#include "graphics.h"
+#include "game.h"
 
 int main(int argc, char *argv[])
 {
-	while (true)
-	{
-		Graphics graphics;
-	}
+	Game game;
 
 	return 0;
 }
