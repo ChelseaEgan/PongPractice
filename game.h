@@ -14,11 +14,12 @@
 class Game
 {
 private:
-	SDL_Event event;
-	Graphics graphics;
+	SDL_Rect sourceRect;
+	SDL_Rect destRect;
 public:
 	Game();
 	~Game();
+
 };
 
 #endif // !GAME_H
